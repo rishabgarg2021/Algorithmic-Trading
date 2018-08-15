@@ -6,7 +6,7 @@ from enum import Enum
 from fmclient import Agent, OrderSide, Order, OrderType
 
 # Group details
-GROUP_MEMBERS = {"1234": "Name 1", "4567": "Name 2"}
+GROUP_MEMBERS = {"796799": "Rishab Garg", "": "Name 2"}
 
 # ------ Add a variable called DS_REWARD_CHARGE -----
 
