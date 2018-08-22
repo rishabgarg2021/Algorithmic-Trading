@@ -89,11 +89,12 @@ class DSBot(Agent):
     def received_order_book(self, order_book, market_id):
         print("role is ", self._role)
         print("id of market is ",self._market_id)
-        id_order=[]
+
+        self._trade_opportunity = {"buy": {}, "sell": {}}
 
         #markert id: order object reference, type, Mine, Buy or Sell , Unit with price.
         for order  in order_book:
-            id_order.append(order._id)
+
             if not order.mine:
                 if(order._side == OrderSide.BUY):
 
@@ -104,18 +105,8 @@ class DSBot(Agent):
 
                     if ( order._id  not in self._trade_opportunity['sell'].keys()):
                         self._trade_opportunity['sell'][order._id] = copy.deepcopy(order)
-        print(" check point ")
-        
-        for id in self._trade_opportunity['buy'].keys():
 
-            if id not in id_order:
-                self._trade_opportunity['buy'].pop(id,None)
 
-        for id in self._trade_opportunity['sell'].keys():
-            if id not in id_order:
-                self._trade_opportunity['sell'].pop(id,None)
-
-     # self._print_trade_opportunity(order_book)
         print("buy orders are :" ,self._trade_opportunity['buy'])
         print("sell orders are :" ,self._trade_opportunity['sell'])
 
@@ -131,7 +122,7 @@ class DSBot(Agent):
         place_buy_order = False
 
         for order in other_order:
-            if(order.mine and order.side == OrderSide.Buy):
+            if(order.mine and order.side == OrderSide.BUY):
                 place_buy_order = True
 
         print("value is  is " ,self._role.value)
@@ -157,6 +148,7 @@ class DSBot(Agent):
             for (id, order) in self._trade_opportunity['buy'].items():
                 if (order._price > max_order_price):
                     max_order_price = order._price
+            print("max order price to buy is ", max_order_price)
 
             if ( max_order_price!=self.MINIMUM and    not self._waiting_for_server and not place_sell_order
                     and self.holdings['markets'][self._market_id]['available_units']>0
