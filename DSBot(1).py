@@ -12,7 +12,7 @@ GROUP_MEMBERS = {"796799": "Rishab Garg", "831865": "Kevin Xu", "834063" : "Aust
 
 
 # ------ Add a variable called DS_REWARD_CHARGE -----
-DS_REWARD_CHARGE = 600
+DS_REWARD_CHARGE = 200
 
 
 
@@ -76,7 +76,7 @@ class DSBot(Agent):
         self.inform("my order ",order._id, " has accepted")
         print("my order ",order._id, " has accepted")
 
-        pass
+
 
     def order_rejected(self, info, order):
         self._waiting_for_server = False
@@ -84,10 +84,10 @@ class DSBot(Agent):
         print("my order ",order._id, " has rejected")
 
 
-        pass
+
 
     def received_order_book(self, order_book, market_id):
-
+        print("role is ", self._role)
         print("id of market is ",self._market_id)
         id_order=[]
 
@@ -104,7 +104,8 @@ class DSBot(Agent):
 
                     if ( order._id  not in self._trade_opportunity['sell'].keys()):
                         self._trade_opportunity['sell'][order._id] = copy.deepcopy(order)
-
+        print(" check point ")
+        
         for id in self._trade_opportunity['buy'].keys():
 
             if id not in id_order:
@@ -152,7 +153,7 @@ class DSBot(Agent):
         for order in other_order:
             if (order.mine and order.side == OrderSide.SELL):
                 place_sell_order = True
-        if (self._role.value == (1,)):
+        if (self._role.value == 1):
             for (id, order) in self._trade_opportunity['buy'].items():
                 if (order._price > max_order_price):
                     max_order_price = order._price
