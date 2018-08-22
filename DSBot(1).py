@@ -1,8 +1,10 @@
 """
 This is a template for Project 1, Task 1 (Induced demand-supply)
 """
-
+import copy
 from enum import Enum
+
+import sys
 from fmclient import Agent, OrderSide, Order, OrderType
 
 # Group details
@@ -34,21 +36,23 @@ class DSBot(Agent):
         name = "H1Bot"
         super().__init__(account, email, password, marketplace_id,name)
         self._market_id = -1
+
+        # It can be either Buyer or seller depending on cash or assets availaible at start
         self._role = None
+
+        self._trade_opportunity = {"buy":{},"sell":{}}
+
+        # Robot type can be either Market_Maker or Reactive.
         self._bot_type = bot_type
-
-
-
-
-
 
 
     def role(self):
         return self._role
 
     def initialised(self):
-        cash_info = self.holdings["cash"]["cash"]
 
+        cash_info = self.holdings["cash"]["cash"]
+        #self.holdings is a dictionary {cash:{'cash':,'available_cash':},markets:{id:{'units':,'ava_units:}}}
         ##will get the information from market id.
         asset_info = None
         for market_id, market_holding in self.holdings["markets"].items():
@@ -57,13 +61,13 @@ class DSBot(Agent):
         if cash_info >0 :
             self._role = Role.BUYER
 
-        if asset_info>0:
-            self._role = Role.SELLER
+        if asset_info > 0:
+            self._role  = Role.SELLER
 
         self.inform("my bot has a role of" + str(self._role))
 
 
-        pass
+
 
     def order_accepted(self, order):
         pass
@@ -72,9 +76,53 @@ class DSBot(Agent):
         pass
 
     def received_order_book(self, order_book, market_id):
+
+
+        id_order=[]
+
+
+        #markert id: order object reference, type, Mine, Buy or Sell , Unit with price.
+        for order  in order_book:
+            id_order.append(order._id)
+            if not order.mine:
+                if(order._side == OrderSide.BUY):
+
+                    if( order._id not  in  self._trade_opportunity['buy'].keys()):
+                        self._trade_opportunity['buy'][order._id] = copy.deepcopy(order)
+
+                if (order._side == OrderSide.SELL):
+
+                    if ( order._id  not in self._trade_opportunity['sell'].keys()):
+                        self._trade_opportunity['sell'][order._id] = copy.deepcopy(order)
+
+        for id in self._trade_opportunity['buy'].keys():
+
+            if id not in id_order:
+                self._trade_opportunity['buy'].pop(id,None)
+
+        for id in self._trade_opportunity['sell'].keys():
+            if id not in id_order:
+                self._trade_opportunity['sell'].pop(id,None)
+
+        self._print_trade_opportunity(order_book)
         pass
 
     def _print_trade_opportunity(self, other_order):
+        print(self._trade_opportunity)
+        for (id, ord) in self._trade_opportunity['buy'].items():
+            print(id)
+            print("buy of")
+            print(ord)
+
+        for (id, ord) in self._trade_opportunity['sell'].items():
+            print(id)
+            print("sell of")
+            print(ord)
+
+
+
+
+
         self.inform("[" + str(self.role()) + str(other_order))
 
     def received_completed_orders(self, orders, market_id=None):
