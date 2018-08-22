@@ -11,6 +11,7 @@ class Bot(Agent):
         self.description = "A bot learning to interact!"
 
 
+
     def initialised(self):
         pass
 
@@ -21,6 +22,14 @@ class Bot(Agent):
         pass
 
     def received_order_book(self, order_book, market_id):
+
+        orders_count = 0
+        for order in order_book:
+            if order.mine:
+                orders_count += 1
+        if orders_count < 2:
+            my_buy_order = Order(100, 1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
+            self.send_order(my_buy_order)
         pass
 
     def received_completed_orders(self, orders, market_id=None):
@@ -28,6 +37,7 @@ class Bot(Agent):
 
     def received_holdings(self, holdings):
         pass
+
 
     def received_marketplace_info(self, marketplace_info):
         session_id= marketplace_info['session_id']

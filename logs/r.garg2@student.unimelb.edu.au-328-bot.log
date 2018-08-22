@@ -30,3 +30,12 @@
 =============================== Log Started [2018-08-15 13:59:24 AEST] ===============================
 [2018-08-15 13:59:27,877:         agent.DSBot]:     INFO - Requesting initial marketplace information.
 [2018-08-15 13:59:28,767:         agent.DSBot]:    ERROR - Oops! Something seriously went wrong.
+
+=============================== Log Started [2018-08-15 14:08:52 AEST] ===============================
+[2018-08-15 14:08:53,664:         agent.DSBot]:     INFO - Requesting initial marketplace information.
+[2018-08-15 14:08:54,726:       comms.Request]:    ERROR - Couldn't parse response from server as JSON. Perhaps use a custom data parser if expecting response in different format
+[2018-08-15 14:08:54,727:         agent.DSBot]:    ERROR - Oops! Something seriously went wrong.
+
+=============================== Log Started [2018-08-15 14:10:03 AEST] ===============================
+[2018-08-15 14:10:04,689:         agent.DSBot]:     INFO - Requesting initial marketplace information.
+[2018-08-15 14:10:06,048:         agent.DSBot]:    ERROR - Oops! Something seriously went wrong.

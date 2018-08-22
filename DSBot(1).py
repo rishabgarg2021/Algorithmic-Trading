@@ -6,9 +6,13 @@ from enum import Enum
 from fmclient import Agent, OrderSide, Order, OrderType
 
 # Group details
-GROUP_MEMBERS = {"796799": "Rishab Garg", "": "Name 2"}
+GROUP_MEMBERS = {"796799": "Rishab Garg", "831865": "Kevin Xu", "834063" : "Austen McClernon"}
+
 
 # ------ Add a variable called DS_REWARD_CHARGE -----
+DS_REWARD_CHARGE = 500
+
+
 
 
 # Enum for the roles of the bot
@@ -20,21 +24,45 @@ class Role(Enum):
 # Let us define another enumeration to deal with the type of bot
 class BotType(Enum):
     MARKET_MAKER = 0,
-    REACTIVE = 1,
+    REACTIVE = 1
 
 
 class DSBot(Agent):
     # ------ Add an extra argument bot_type to the constructor -----
-    def __init__(self, account, email, password, marketplace_id):
-        super().__init__(account, email, password, marketplace_id, name="DSBot")
-        self._market_id = 328
+    def __init__(self, account, email, password, marketplace_id, bot_type):
+
+        name = "H1Bot"
+        super().__init__(account, email, password, marketplace_id,name)
+        self._market_id = -1
         self._role = None
-        # ------ Add new class variable _bot_type to store the type of the bot
+        self._bot_type = bot_type
+
+
+
+
+
+
 
     def role(self):
         return self._role
 
     def initialised(self):
+        cash_info = self.holdings["cash"]["cash"]
+
+        ##will get the information from market id.
+        asset_info = None
+        for market_id, market_holding in self.holdings["markets"].items():
+            asset_info = market_holding["units"]
+
+        if cash_info >0 :
+            self._role = Role.BUYER
+
+        if asset_info>0:
+            self._role = Role.SELLER
+
+        self.inform("my bot has a role of" + str(self._role))
+
+
         pass
 
     def order_accepted(self, order):
@@ -53,9 +81,12 @@ class DSBot(Agent):
         pass
 
     def received_holdings(self, holdings):
+
+
         pass
 
     def received_marketplace_info(self, marketplace_info):
+        self.inform(marketplace_info['session_id'])
         pass
 
     def run(self):
@@ -67,7 +98,7 @@ if __name__ == "__main__":
     FM_ACCOUNT = "bullish-delight"
     FM_EMAIL = "r.garg2@student.unimelb.edu.au"
     FM_PASSWORD = "796799"
-    MARKETPLACE_ID = 328  # replace this with the marketplace id
-
-    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID)
+    MARKETPLACE_ID = 352  # replace this with the marketplace id
+    bot_type= BotType.MARKET_MAKER
+    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID,bot_type)
     ds_bot.run()
