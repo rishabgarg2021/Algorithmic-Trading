@@ -46,6 +46,8 @@ class DSBot(Agent):
         # Robot type can be either Market_Maker or Reactive.
         self._bot_type = bot_type
         self._waiting_for_server=False
+        self.bid_counter = 0
+        self.ask_counter = 0
     
     def role(self):
         return self._role
@@ -75,14 +77,20 @@ class DSBot(Agent):
         self._waiting_for_server = False
         self.inform("my order ",order._id, " has accepted")
         print("my order ",order._id, " has accepted")
-
+        if OrderSide.BUY:
+            self.bid_counter = 0
+        elif OrderSide.SELL:
+            self.ask_counter = 0
 
 
     def order_rejected(self, info, order):
         self._waiting_for_server = False
         self.inform("my order ",order._id, " has rejected")
         print("my order ",order._id, " has rejected")
-
+        if OrderSide.BUY:
+            self.bid_counter = 0
+        elif OrderSide.SELL:
+            self.ask_counter = 0
 
 
 
@@ -110,7 +118,8 @@ class DSBot(Agent):
         print("buy orders are :" ,self._trade_opportunity['buy'])
         print("sell orders are :" ,self._trade_opportunity['sell'])
 
-        self._reactive(order_book)
+        # self._reactive(order_book)
+        self._marketmaker(order_book)
 
 
         pass
@@ -159,8 +168,21 @@ class DSBot(Agent):
                 print("place this order of sell ", place_sell_order)
                 self._waiting_for_server = True
 
+    def _marketmaker(self, other_order):
 
+        print("cash with us is ", self.holdings['cash']['available_cash'])
 
+        if (self._role.value == 1 and self.ask_counter < 2): #seller
+            place_sell_order = Order(DS_REWARD_CHARGE+5, 1, OrderType.LIMIT, OrderSide.SELL,
+                                     self._market_id, ref="b1")
+            self.send_order(place_sell_order)
+            print("place this order of sell ", place_sell_order)
+
+        if (self._role.value == 0 and self.bid_counter < 2): # buyer
+            place_buy_order = Order(DS_REWARD_CHARGE-5,
+                                    1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
+            self.send_order(place_buy_order)
+            print("place this order ", place_buy_order)
 
     def _print_trade_opportunity(self, other_order):
         # print(self._trade_opportunity)
