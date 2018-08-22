@@ -180,13 +180,13 @@ class DSBot(Agent):
 
         print("cash with us is ", self.holdings['cash']['available_cash'])
 
-        if (self._role.value == 1 and self.ask_counter < 2): #seller
+        if (self._role.value == 1 and self.ask_counter < 2 and self.holdings['markets'][self._market_id]['available_units']>0): #seller
             place_sell_order = Order(DS_REWARD_CHARGE+5, 1, OrderType.LIMIT, OrderSide.SELL,
                                      self._market_id, ref="b1")
             self.send_order(place_sell_order)
             print("place this order of sell ", place_sell_order)
 
-        if (self._role.value == 0 and self.bid_counter < 2): # buyer
+        if (self._role.value == 0 and self.bid_counter < 2 and self.holdings['cash']['available_cash'] >= DS_REWARD_CHARGE-5): # buyer
             place_buy_order = Order(DS_REWARD_CHARGE-5,
                                     1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
             self.send_order(place_buy_order)
