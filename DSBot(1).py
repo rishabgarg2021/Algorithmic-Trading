@@ -12,7 +12,7 @@ GROUP_MEMBERS = {"796799": "Rishab Garg", "831865": "Kevin Xu", "834063" : "Aust
 
 
 # ------ Add a variable called DS_REWARD_CHARGE -----
-DS_REWARD_CHARGE = 500
+DS_REWARD_CHARGE = 600
 
 
 
@@ -35,17 +35,18 @@ class DSBot(Agent):
 
         name = "H1Bot"
         super().__init__(account, email, password, marketplace_id,name)
-        self._market_id = marketplace_id
+        self._market_id = -1
 
         # It can be either Buyer or seller depending on cash or assets availaible at start
         self._role = None
-
+        self.MAXIMUM = 10001
+        self.MINIMUM= -1
         self._trade_opportunity = {"buy":{},"sell":{}}
 
         # Robot type can be either Market_Maker or Reactive.
         self._bot_type = bot_type
         self._waiting_for_server=False
-
+    
     def role(self):
         return self._role
 
@@ -56,6 +57,7 @@ class DSBot(Agent):
         ##will get the information from market id.
         asset_info = None
         for market_id, market_holding in self.holdings["markets"].items():
+            self._market_id = market_id
             asset_info = market_holding["units"]
 
         if cash_info >0 :
@@ -72,16 +74,21 @@ class DSBot(Agent):
     def order_accepted(self, order):
         self._waiting_for_server = False
         self.inform("my order ",order._id, " has accepted")
+        print("my order ",order._id, " has accepted")
+
         pass
 
     def order_rejected(self, info, order):
         self._waiting_for_server = False
         self.inform("my order ",order._id, " has rejected")
+        print("my order ",order._id, " has rejected")
+
+
         pass
 
     def received_order_book(self, order_book, market_id):
 
-
+        print("id of market is ",self._market_id)
         id_order=[]
 
         #markert id: order object reference, type, Mine, Buy or Sell , Unit with price.
@@ -116,44 +123,47 @@ class DSBot(Agent):
 
         pass
     def _reactive(self,other_order):
-        min_order_price = sys.maxsize
-        order_buy = 0
+        
+        
+        print("cash with us is ", self.holdings['cash']['available_cash'])
+        min_order_price = self.MAXIMUM
         place_buy_order = False
 
         for order in other_order:
             if(order.mine and order.side == OrderSide.Buy):
                 place_buy_order = True
 
-        print("here")
-        if(self._role == Role.Buyer):
+        print("value is  is " ,self._role.value)
+        if( self._role.value == (0,)):
             for (id,order) in self._trade_opportunity['sell'].items():
                 if(order._price < min_order_price):
                     min_order_price = order._price
-                    order_buy = copy.deepcopy(order)
-            if(order_buy and not self._waiting_for_server and not place_buy_order and self.holdings['cash']['available_cash'] >= min_order_price and DS_REWARD_CHARGE >= min_order_price):
-                place_buy_order = Order(order_buy._price,order_buy._units,OrderType.LIMIT,OrderSide.BUY,self._market_id,ref="b1")
-
+            if(min_order_price !=self.MAXIMUM and  not self._waiting_for_server and not place_buy_order and self.holdings['cash']['available_cash'] >= min_order_price and DS_REWARD_CHARGE >= min_order_price):
+                place_buy_order = Order(min_order_price,
+                                1,OrderType.LIMIT,OrderSide.BUY,self._market_id,ref="b1")
+                self.send_order(place_buy_order)
+                print("place this order ",place_buy_order)
                 self._waiting_for_server = True
 
-        max_order_price = sys.minsize
-        order_sell = 0
-        place_sell_order = False
 
+
+        max_order_price = self.MINIMUM
+        place_sell_order = False
         for order in other_order:
             if (order.mine and order.side == OrderSide.SELL):
                 place_sell_order = True
-
-        if (self._role == Role.SELLER):
+        if (self._role.value == (1,)):
             for (id, order) in self._trade_opportunity['buy'].items():
                 if (order._price > max_order_price):
                     max_order_price = order._price
-                    order_sell = copy.deepcopy(order)
-            if (order_sell and  not self._waiting_for_server and not place_sell_order
+
+            if ( max_order_price!=self.MINIMUM and    not self._waiting_for_server and not place_sell_order
                     and self.holdings['markets'][self._market_id]['available_units']>0
                     and DS_REWARD_CHARGE <= max_order_price):
-                place_sell_order = Order(order_sell._price, order_sell._units, OrderType.LIMIT, OrderSide.SELL,
+                place_sell_order = Order(max_order_price, 1, OrderType.LIMIT, OrderSide.SELL,
                                         self._market_id, ref="b1")
-
+                self.send_order(place_sell_order)
+                print("place this order of sell ", place_sell_order)
                 self._waiting_for_server = True
 
 

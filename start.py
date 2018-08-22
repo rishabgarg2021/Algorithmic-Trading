@@ -28,7 +28,8 @@ class Bot(Agent):
             if order.mine:
                 orders_count += 1
         if orders_count < 2:
-            my_buy_order = Order(100, 1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
+            my_buy_order = Order(1000, 1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
+            print(my_buy_order)
             self.send_order(my_buy_order)
         pass
 
