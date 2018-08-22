@@ -35,7 +35,7 @@ class DSBot(Agent):
 
         name = "H1Bot"
         super().__init__(account, email, password, marketplace_id,name)
-        self._market_id = -1
+        self._market_id = marketplace_id
 
         # It can be either Buyer or seller depending on cash or assets availaible at start
         self._role = None
@@ -44,7 +44,7 @@ class DSBot(Agent):
 
         # Robot type can be either Market_Maker or Reactive.
         self._bot_type = bot_type
-
+        self._waiting_for_server=False
 
     def role(self):
         return self._role
@@ -70,16 +70,19 @@ class DSBot(Agent):
 
 
     def order_accepted(self, order):
+        self._waiting_for_server = False
+        self.inform("my order ",order._id, " has accepted")
         pass
 
     def order_rejected(self, info, order):
+        self._waiting_for_server = False
+        self.inform("my order ",order._id, " has rejected")
         pass
 
     def received_order_book(self, order_book, market_id):
 
 
         id_order=[]
-
 
         #markert id: order object reference, type, Mine, Buy or Sell , Unit with price.
         for order  in order_book:
@@ -104,26 +107,76 @@ class DSBot(Agent):
             if id not in id_order:
                 self._trade_opportunity['sell'].pop(id,None)
 
-        self._print_trade_opportunity(order_book)
+     # self._print_trade_opportunity(order_book)
+        print("buy orders are :" ,self._trade_opportunity['buy'])
+        print("sell orders are :" ,self._trade_opportunity['sell'])
+
+        self._reactive(order_book)
+
+
         pass
+    def _reactive(self,other_order):
+        min_order_price = sys.maxsize
+        order_buy = 0
+        place_buy_order = False
+
+        for order in other_order:
+            if(order.mine and order.side == OrderSide.Buy):
+                place_buy_order = True
+
+        print("here")
+        if(self._role == Role.Buyer):
+            for (id,order) in self._trade_opportunity['sell'].items():
+                if(order._price < min_order_price):
+                    min_order_price = order._price
+                    order_buy = copy.deepcopy(order)
+            if(order_buy and not self._waiting_for_server and not place_buy_order and self.holdings['cash']['available_cash'] >= min_order_price and DS_REWARD_CHARGE >= min_order_price):
+                place_buy_order = Order(order_buy._price,order_buy._units,OrderType.LIMIT,OrderSide.BUY,self._market_id,ref="b1")
+
+                self._waiting_for_server = True
+
+        max_order_price = sys.minsize
+        order_sell = 0
+        place_sell_order = False
+
+        for order in other_order:
+            if (order.mine and order.side == OrderSide.SELL):
+                place_sell_order = True
+
+        if (self._role == Role.SELLER):
+            for (id, order) in self._trade_opportunity['buy'].items():
+                if (order._price > max_order_price):
+                    max_order_price = order._price
+                    order_sell = copy.deepcopy(order)
+            if (order_sell and  not self._waiting_for_server and not place_sell_order
+                    and self.holdings['markets'][self._market_id]['available_units']>0
+                    and DS_REWARD_CHARGE <= max_order_price):
+                place_sell_order = Order(order_sell._price, order_sell._units, OrderType.LIMIT, OrderSide.SELL,
+                                        self._market_id, ref="b1")
+
+                self._waiting_for_server = True
+
+
+
 
     def _print_trade_opportunity(self, other_order):
-        print(self._trade_opportunity)
-        for (id, ord) in self._trade_opportunity['buy'].items():
-            print(id)
-            print("buy of")
-            print(ord)
-
-        for (id, ord) in self._trade_opportunity['sell'].items():
-            print(id)
-            print("sell of")
-            print(ord)
-
-
+        # print(self._trade_opportunity)
+        # for (id, ord) in self._trade_opportunity['buy'].items():
+        #     print(id)
+        #     print("buy of")
+        #     print(ord)
+        #
+        # for (id, ord) in self._trade_opportunity['sell'].items():
+        #     print(id)
+        #     print("sell of")
+        #     print(ord)
 
 
 
-        self.inform("[" + str(self.role()) + str(other_order))
+
+
+        # self.inform("[" + str(self.role()) + str(other_order))
+        pass
 
     def received_completed_orders(self, orders, market_id=None):
         pass
