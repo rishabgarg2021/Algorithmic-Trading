@@ -43,32 +43,45 @@ class DSBot(Agent):
         self._role = None
         self.MAXIMUM = 10001
         self.MINIMUM= -1
+
+        #it stores all the trade_opportunities of buy and sell order in the dict.
         self._trade_opportunity = {"buy":{},"sell":{}}
 
         # Robot type can be either Market_Maker or Reactive.
         self._bot_type = bot_type
+
         self._waiting_for_server= False
-        self.bid_counter = 0
-        self.ask_counter = 0
-    
+
+        #it evaluates to true if we have send the order and waiting for the order to be accepted.
+        #wait_buy_server_mm checks if are waiting for buy order sent by MM.
+        #wait_sell_server_mm checks if we are waitinr sell order sent by MM
+        self._wait_buy_server_mm = False
+        self._wait_sell_server_mm =False
+
+    #it tells the type of the role of the bot, if it is SELLER or BUYER.
     def role(self):
+
         return self._role
 
     def initialised(self):
 
+        #cash_info holds the available cash with bot.
         cash_info = self.holdings["cash"]["cash"]
-        #self.holdings is a dictionary {cash:{'cash':,'available_cash':},markets:{id:{'units':,'ava_units:}}}
+        #self.holdings is a dictionary
+        # {cash:{'cash':,'available_cash':},markets:{id:{'units':,'ava_units:}}}
         ##will get the information from market id.
         asset_info = None
         for market_id, market_holding in self.holdings["markets"].items():
             self._market_id = market_id
             asset_info = market_holding["units"]
 
+        #A bot can be either Buyer or Seller depending on it's initial holdings.
         if cash_info >0 :
             self._role = Role.BUYER
 
         elif asset_info > 0:
             self._role  = Role.SELLER
+
 
         self.inform("my bot has a role of" + str(self._role))
 
@@ -76,33 +89,26 @@ class DSBot(Agent):
 
 
     def order_accepted(self, order):
-
-
         self._waiting_for_server= False
+        self._wait_buy_server_mm=False
+        self._wait_sell_server_mm=False
 
-        print("my order   has accepted",order)
+        print("my order got accepted",order)
 
-        if OrderSide.BUY:
-            self.bid_counter = 0
-        elif OrderSide.SELL:
-            self.ask_counter = 0
+
 
     def order_rejected(self, info, order):
+
         self._waiting_for_server= False
+        self._wait_buy_server_mm = False
+        self._wait_sell_server_mm = False
+        self.inform("my order " + str(order) + " has rejected")
+        print("my order  has  got rejected",order,info)
 
-        self.inform("my order ",order, " has rejected")
-        print("my order  has rejected",order,info)
-
-        if OrderSide.BUY:
-            self.bid_counter = 0
-        elif OrderSide.SELL:
-            self.ask_counter = 0
 
 
 
     def received_order_book(self, order_book, market_id):
-        print("role is ", self._role)
-        print("id of market is ",self._market_id)
 
         #gets the trade_opportunity every time the order book is received from server.
         self._trade_opportunity = {"buy": {}, "sell": {}}
@@ -110,25 +116,22 @@ class DSBot(Agent):
         #Order is defined as markert id: order object reference, type, Mine, Buy or Sell , Unit with price.
 
         for order  in order_book:
-
             if not order.mine:
                 if(order._side == OrderSide.BUY):
-
                     if( order._id not  in  self._trade_opportunity['buy'].keys()):
                         self._trade_opportunity['buy'][order._id] = copy.deepcopy(order)
-
                 if (order._side == OrderSide.SELL):
 
                     if ( order._id  not in self._trade_opportunity['sell'].keys()):
                         self._trade_opportunity['sell'][order._id] = copy.deepcopy(order)
 
 
-        print("buy orders are :" ,self._trade_opportunity['buy'])
-        print("sell orders are :" ,self._trade_opportunity['sell'])
 
-        # self._reactive(order_book)
-
-        self._marketmaker(order_book)
+        if(self._bot_type == BotType.REACTIVE):
+            self._reactive(order_book)
+        elif(self._bot_type == BotType.MARKET_MAKER):
+            print("I am a market maker.")
+            self._marketmaker(order_book)
 
 
 
@@ -153,7 +156,7 @@ class DSBot(Agent):
         #we will buy from it.
         #calculated the minimum order of sell and placed a buy order if it is less than the given amount.
         #also checked that we placed one order till the server gives the confirmation.
-        if( self._role.value == (0,)):
+        if( self._role == Role.BUYER):
             for (id,order) in self._trade_opportunity['sell'].items():
                 if(order._price < min_order_price):
                     min_order_price = order._price
@@ -175,7 +178,7 @@ class DSBot(Agent):
         for order in other_order:
             if (order.mine and order.side == OrderSide.SELL):
                 place_sell_order = True
-        if (self._role.value == 1):
+        if (self._role == Role.SELLER):
             for (id, order) in self._trade_opportunity['buy'].items():
                 print("buy order is ", id, order)
                 if (order._price > max_order_price):
@@ -194,20 +197,30 @@ class DSBot(Agent):
         self._print_trade_opportunity(other_order)
 
     def _marketmaker(self, other_order):
-
+        place_sell_order = False
+        place_buy_order = False
         print("cash with us is ", self.holdings['cash']['available_cash'])
 
-        if (self.holdings['markets'][self._market_id]['available_units']>0 and self._role.value == 1 and self.ask_counter < 2): #seller
+        for order in other_order:
+            if (order.mine and order.side == OrderSide.SELL):
+                place_sell_order = True
+            if(order.mine and order.side == OrderSide.BUY):
+                place_buy_order= True
+
+        if (not self._wait_sell_server_mm and not place_sell_order
+                and self.holdings['markets'][self._market_id]['available_units']>0 ): #sell
             place_sell_order = Order(DS_REWARD_CHARGE+5, 1, OrderType.LIMIT, OrderSide.SELL,
                                      self._market_id, ref="b1")
-            self.ask_counter+=1
+
             self.send_order(place_sell_order)
+            self._wait_buy_server_mm=True
             print("place this order of sell ", place_sell_order)
 
-        if (self.holdings['cash']['available_cash'] >= (DS_REWARD_CHARGE-5) and self._role.value == (0,) and self.bid_counter < 2): # buyer
+        if (not self._wait_buy_server_mm and not place_buy_order
+                and self.holdings['cash']['available_cash'] >= (DS_REWARD_CHARGE-5)): # buy
             place_buy_order = Order(DS_REWARD_CHARGE-5,
                                     1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="s1")
-            self.bid_counter+=1
+            self._wait_sell_server_mm=True
             self.send_order(place_buy_order)
             print("place this order ", place_buy_order)
 
@@ -218,7 +231,7 @@ class DSBot(Agent):
 
         print(self._trade_opportunity)
         #defines the buyer
-        if(self._role.value == (0,)):
+        if(self._role == Role.BUYER):
             for (id, ord) in self._trade_opportunity['sell'].items():
                 print("sell orders ")
                 print(ord._price)
@@ -234,7 +247,7 @@ class DSBot(Agent):
                         self.inform("[PROFITABLE TRADE] @ " + str(ord._price) , " but has insufficient cash")
                         print("[PROFITABLE TRADE] @ ",ord._price , " but has insufficient cash")
         #defines the seller
-        if (self._role.value == 1):
+        if (self._role == Role.SELLER):
             for (id, ord) in self._trade_opportunity['buy'].items():
                 if (ord._price >= DS_REWARD_CHARGE):
 
@@ -284,5 +297,5 @@ if __name__ == "__main__":
     FM_PASSWORD = "796799"
     MARKETPLACE_ID = 260  # replace this with the marketplace id
     bot_type= BotType.MARKET_MAKER
-    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID,bot_type)
+    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID,BotType.REACTIVE)
     ds_bot.run()

@@ -4460,3 +4460,103 @@
 [2018-08-26 17:56:38,351:         agent.H1Bot]:     INFO - Received initial marketplace information.
 [2018-08-26 17:56:38,351:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
 [2018-08-26 17:57:10,653:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:02:59 AEST] ===============================
+[2018-08-26 18:03:02,433:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:03:04,698:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:03:04,699:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:03:12,583:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:03:51 AEST] ===============================
+[2018-08-26 18:03:52,744:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:03:55,043:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:03:55,043:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:04:10,650:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:07:09 AEST] ===============================
+[2018-08-26 18:07:11,197:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:07:13,392:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:07:13,393:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+
+=============================== Log Started [2018-08-26 18:07:26 AEST] ===============================
+[2018-08-26 18:07:27,931:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:07:29,802:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:07:29,802:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:07:31,846:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+[2018-08-26 18:07:31,886:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:08:10 AEST] ===============================
+[2018-08-26 18:08:13,134:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:08:15,327:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:08:15,327:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:08:55,766:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:41:55 AEST] ===============================
+[2018-08-26 18:41:58,672:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:42:00,374:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:42:00,375:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:42:05,300:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:43:30 AEST] ===============================
+[2018-08-26 18:43:32,305:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:43:34,445:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:43:34,445:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:43:40,865:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:45:57 AEST] ===============================
+[2018-08-26 18:45:59,061:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:46:00,767:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:46:00,768:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:46:23,542:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:48:45 AEST] ===============================
+[2018-08-26 18:48:48,584:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:48:50,777:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:48:50,777:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:49:14,073:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:52:55 AEST] ===============================
+[2018-08-26 18:52:57,073:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:52:59,166:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:52:59,166:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:53:11,122:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:53:17 AEST] ===============================
+[2018-08-26 18:53:19,425:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:53:21,620:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:53:21,620:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:53:33,078:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:53:35 AEST] ===============================
+[2018-08-26 18:53:36,763:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:53:38,540:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:53:38,540:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:55:05,674:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 18:56:29 AEST] ===============================
+[2018-08-26 18:56:30,988:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 18:56:32,886:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 18:56:32,886:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 18:56:52,452:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 20:40:59 AEST] ===============================
+[2018-08-26 20:41:02,274:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 20:41:04,272:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 20:41:04,273:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 20:47:12,980:         agent.H1Bot]:     INFO - my order 539:NoID:[LIMIT]:Others:SELL:1@105:REFb1 has rejected
+
+=============================== Log Started [2018-08-26 21:30:51 AEST] ===============================
+[2018-08-26 21:30:53,164:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 21:30:54,886:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 21:30:54,886:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+
+=============================== Log Started [2018-08-26 21:30:55 AEST] ===============================
+[2018-08-26 21:30:56,424:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 21:30:56,795:         agent.H1Bot]:    ERROR - User interrupt received. Closing program.
+[2018-08-26 21:30:56,825:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+[2018-08-26 21:30:56,858:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 21:30:59 AEST] ===============================
+[2018-08-26 21:31:00,973:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 21:31:02,941:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 21:31:02,941:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
