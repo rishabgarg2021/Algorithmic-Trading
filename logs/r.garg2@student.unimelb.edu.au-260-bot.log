@@ -4560,3 +4560,119 @@
 [2018-08-26 21:31:00,973:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
 [2018-08-26 21:31:02,941:         agent.H1Bot]:     INFO - Received initial marketplace information.
 [2018-08-26 21:31:02,941:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 21:40:45,295:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 21:47:09 AEST] ===============================
+[2018-08-26 21:47:11,668:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 21:47:13,794:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 21:47:13,795:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 21:47:32,682:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 22:10:22 AEST] ===============================
+[2018-08-26 22:10:24,329:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 22:10:26,254:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 22:10:26,255:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 22:10:55,810:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 95
+[2018-08-26 22:11:02,589:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 95
+[2018-08-26 22:11:18,343:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 95
+[2018-08-26 22:11:32,950:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 22:12:41 AEST] ===============================
+[2018-08-26 22:12:43,366:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 22:12:45,351:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 22:12:45,351:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 22:14:20,430:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 22:16:51 AEST] ===============================
+[2018-08-26 22:16:53,214:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 22:16:55,225:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 22:16:55,226:         agent.H1Bot]:     INFO - my bot has a role ofRole.SELLER
+[2018-08-26 22:16:55,543:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:16:55,543:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:16:57,779:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:06,787:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:20,355:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:29,312:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:29,313:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:29,313:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:31,561:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:31,561:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:31,561:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:31,561:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:31,561:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:33,795:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:33,795:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:33,795:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:33,795:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:36,045:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:36,045:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:36,045:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:38,277:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:38,277:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:39,593:         agent.H1Bot]:     INFO - my order 539:NoID:[LIMIT]:Others:SELL:1@105:REFb1 has rejected
+[2018-08-26 22:17:40,531:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:40,531:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:42,762:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:42,762:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:44,998:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:44,998:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:47,228:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:47,229:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:49,469:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:49,470:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:51,713:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:51,713:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:54,006:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:54,006:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:56,305:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:56,306:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:58,599:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:17:58,600:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:00,843:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:00,844:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:03,094:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:03,095:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:05,390:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:05,390:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:07,632:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:07,632:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:09,874:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:09,874:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:12,119:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:12,119:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:14,364:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:14,364:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:14,544:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.
+
+=============================== Log Started [2018-08-26 22:18:25 AEST] ===============================
+[2018-08-26 22:18:26,907:         agent.H1Bot]:     INFO - Requesting initial marketplace information.
+[2018-08-26 22:18:29,100:         agent.H1Bot]:     INFO - Received initial marketplace information.
+[2018-08-26 22:18:29,100:         agent.H1Bot]:     INFO - my bot has a role ofRole.BUYER
+[2018-08-26 22:18:29,363:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:29,363:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:31,606:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:31,606:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:33,845:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:33,845:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:36,203:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:36,203:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:38,501:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:38,501:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:40,735:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:40,735:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:42,992:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:42,993:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:45,234:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:45,234:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:47,480:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:47,480:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:49,723:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:49,723:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:51,976:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:51,976:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:54,273:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:54,273:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:56,506:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:18:58,741:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:19:00,977:         agent.H1Bot]:     INFO - [PROFITABLE TRADE] @ 105
+[2018-08-26 22:48:27,414:         agent.H1Bot]:    ERROR - Oops. Keyboard Interrupt received from user.

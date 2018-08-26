@@ -66,21 +66,24 @@ class DSBot(Agent):
     def initialised(self):
 
         #cash_info holds the available cash with bot.
-        cash_info = self.holdings["cash"]["cash"]
+        cash_info = self.holdings["cash"]["available_cash"]
         #self.holdings is a dictionary
         # {cash:{'cash':,'available_cash':},markets:{id:{'units':,'ava_units:}}}
         ##will get the information from market id.
         asset_info = None
         for market_id, market_holding in self.holdings["markets"].items():
             self._market_id = market_id
-            asset_info = market_holding["units"]
+            asset_info = market_holding["available_units"]
 
         #A bot can be either Buyer or Seller depending on it's initial holdings.
-        if cash_info >0 :
-            self._role = Role.BUYER
 
-        elif asset_info > 0:
+
+        if asset_info > 0:
+            print("asset")
             self._role  = Role.SELLER
+
+        elif cash_info > 0:
+            self._role = Role.BUYER
 
 
         self.inform("my bot has a role of" + str(self._role))
@@ -128,13 +131,14 @@ class DSBot(Agent):
 
 
         if(self._bot_type == BotType.REACTIVE):
+            print("I am a Reactive Bot")
             self._reactive(order_book)
         elif(self._bot_type == BotType.MARKET_MAKER):
-            print("I am a market maker.")
+            print("I am a Market Maker")
+
             self._marketmaker(order_book)
 
-
-
+        self._print_trade_opportunity(order_book)
 
 
 
@@ -194,7 +198,6 @@ class DSBot(Agent):
                 self.send_order(place_sell_order)
                 print("place this order of sell ", place_sell_order)
                 self._waiting_for_server = True
-        self._print_trade_opportunity(other_order)
 
     def _marketmaker(self, other_order):
         place_sell_order = False
@@ -225,18 +228,13 @@ class DSBot(Agent):
             print("place this order ", place_buy_order)
 
     def _print_trade_opportunity(self, other_order):
-    #if i am buyer. anything whic# h has ask price less than my DS_REWARD, i will buy it.
-        print("here")
-        print(self._role.value)
 
-        print(self._trade_opportunity)
-        #defines the buyer
-        if(self._role == Role.BUYER):
+        if(self._role == Role.BUYER or self._bot_type == BotType.MARKET_MAKER):
             for (id, ord) in self._trade_opportunity['sell'].items():
                 print("sell orders ")
                 print(ord._price)
 
-                if(ord._price <= DS_REWARD_CHARGE):
+                if(ord._price <= DS_REWARD_CHARGE and not (self._bot_type ==BotType.MARKET_MAKER)):
 
                     if(self.holdings['cash']['available_cash'] >= ord._price):
                         self.inform("[PROFITABLE TRADE] @ " + str(ord._price) )
@@ -246,10 +244,25 @@ class DSBot(Agent):
 
                         self.inform("[PROFITABLE TRADE] @ " + str(ord._price) , " but has insufficient cash")
                         print("[PROFITABLE TRADE] @ ",ord._price , " but has insufficient cash")
+
+                #market maker goes through all the sell orders and buys it which is
+                #5cents lowers than utility.
+                if(self._bot_type==BotType.MARKET_MAKER and ord._price <= (DS_REWARD_CHARGE-5)):
+                    if (self.holdings['cash']['available_cash'] >= ord._price):
+                        self.inform("[PROFITABLE TRADE] @ " + str(ord._price))
+                        print("[PROFITABLE TRADE] @ ", str(ord._price))
+
+                    if (self.holdings['cash']['available_cash'] < ord._price):
+
+
+                        self.inform("[PROFITABLE TRADE] @ " + str(ord._price), " but has insufficient cash")
+                        print("[PROFITABLE TRADE] @ ", ord._price, " but has insufficient cash")
+
+
         #defines the seller
-        if (self._role == Role.SELLER):
+        if (self._role == Role.SELLER or self._bot_type == BotType.MARKET_MAKER):
             for (id, ord) in self._trade_opportunity['buy'].items():
-                if (ord._price >= DS_REWARD_CHARGE):
+                if (ord._price >= DS_REWARD_CHARGE and not (self._bot_type ==BotType.MARKET_MAKER)):
 
                     if (self.holdings['markets'][self._market_id]['available_units'] >0):
                         print("[PROFITABLE TRADE] @ ", str(ord._price))
@@ -259,19 +272,19 @@ class DSBot(Agent):
                         print("[PROFITABLE TRADE] @ ", str(ord._price), " but has insufficient assets")
                         self.inform("[PROFITABLE TRADE] @ "+ str(ord._price), " but has insufficient assets")
 
+                # market maker goes through all the buy orders and sells it which is
+                # 5cents above than utility price.
+                if (self._bot_type == BotType.MARKET_MAKER and ord._price >= (DS_REWARD_CHARGE + 5)):
+                    if (self.holdings['markets'][self._market_id]['available_units'] >0):
+                        self.inform("[PROFITABLE TRADE] @ " + str(ord._price))
+                        print("[PROFITABLE TRADE] @ ", str(ord._price))
+
+                    if (self.holdings['markets'][self._market_id]['available_units'] == 0 ):
+                        self.inform("[PROFITABLE TRADE] @ " + str(ord._price), " but has insufficient cash")
+                        print("[PROFITABLE TRADE] @ ", ord._price, " but has insufficient assets")
 
 
 
-        # for (id, ord) in self._trade_opportunity['sell'].items():
-        #     print(id)
-        #     print("sell of")
-        #     print(ord)
-
-
-
-
-
-        # self.inform("[" + str(self.role()) + str(other_order))
 
 
     def received_completed_orders(self, orders, market_id=None):
@@ -297,5 +310,5 @@ if __name__ == "__main__":
     FM_PASSWORD = "796799"
     MARKETPLACE_ID = 260  # replace this with the marketplace id
     bot_type= BotType.MARKET_MAKER
-    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID,BotType.REACTIVE)
+    ds_bot = DSBot(FM_ACCOUNT, FM_EMAIL, FM_PASSWORD, MARKETPLACE_ID,BotType.MARKET_MAKER)
     ds_bot.run()
