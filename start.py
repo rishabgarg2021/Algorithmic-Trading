@@ -9,7 +9,7 @@ class Bot(Agent):
         name = "Simple_Bot"
         super().__init__(account,email,password,marketplace_id,name=name)
         self.description = "A bot learning to interact!"
-
+        self._market_id = 539
 
 
     def initialised(self):
@@ -22,14 +22,16 @@ class Bot(Agent):
         pass
 
     def received_order_book(self, order_book, market_id):
-
+        print("hehrhrhe")
+        print(self._market_id)
         orders_count = 0
         for order in order_book:
             if order.mine:
                 orders_count += 1
         if orders_count < 2:
-            my_buy_order = Order(1000, 1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="b1")
-            print(my_buy_order)
+            my_buy_order = Order(100, 1, OrderType.LIMIT, OrderSide.BUY, 539, ref="b1")
+            print("my buy order is ",my_buy_order)
+
             self.send_order(my_buy_order)
         pass
 
@@ -54,6 +56,6 @@ class Bot(Agent):
 
 
 if __name__ == "__main__":
-    marketplace_id = 352
+    marketplace_id = 260
     fm_bot = Bot("bullish-delight", "r.garg2@student.unimelb.edu.au", "796799", marketplace_id)
     fm_bot.run()
