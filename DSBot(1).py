@@ -12,7 +12,7 @@ GROUP_MEMBERS = {"796799": "Rishab Garg", "831865": "Kevin Xu", "834063" : "Aust
 
 
 # ------ Add a variable called DS_REWARD_CHARGE -----
-DS_REWARD_CHARGE = 920
+DS_REWARD_CHARGE = 100
 
 
 
@@ -82,16 +82,21 @@ class DSBot(Agent):
 
         print("my order   has accepted",order)
 
+        if OrderSide.BUY:
+            self.bid_counter = 0
+        elif OrderSide.SELL:
+            self.ask_counter = 0
 
     def order_rejected(self, info, order):
         self._waiting_for_server= False
 
         self.inform("my order ",order, " has rejected")
         print("my order  has rejected",order,info)
-        # if OrderSide.BUY:
-        #     self.bid_counter = 0
-        # elif OrderSide.SELL:
-        #     self.ask_counter = 0
+
+        if OrderSide.BUY:
+            self.bid_counter = 0
+        elif OrderSide.SELL:
+            self.ask_counter = 0
 
 
 
@@ -121,9 +126,11 @@ class DSBot(Agent):
         print("buy orders are :" ,self._trade_opportunity['buy'])
         print("sell orders are :" ,self._trade_opportunity['sell'])
 
-        self._reactive(order_book)
-        self._print_trade_opportunity(order_book)
-        # self._marketmaker(order_book)
+        # self._reactive(order_book)
+
+        self._marketmaker(order_book)
+
+
 
 
 
@@ -184,20 +191,23 @@ class DSBot(Agent):
                 self.send_order(place_sell_order)
                 print("place this order of sell ", place_sell_order)
                 self._waiting_for_server = True
+        self._print_trade_opportunity(other_order)
 
     def _marketmaker(self, other_order):
 
         print("cash with us is ", self.holdings['cash']['available_cash'])
 
-        if (self._role.value == 1 and self.ask_counter < 2): #seller
+        if (self.holdings['markets'][self._market_id]['available_units']>0 and self._role.value == 1 and self.ask_counter < 2): #seller
             place_sell_order = Order(DS_REWARD_CHARGE+5, 1, OrderType.LIMIT, OrderSide.SELL,
                                      self._market_id, ref="b1")
+            self.ask_counter+=1
             self.send_order(place_sell_order)
             print("place this order of sell ", place_sell_order)
 
-        if (self._role.value == (0,) and self.bid_counter < 2): # buyer
+        if (self.holdings['cash']['available_cash'] >= (DS_REWARD_CHARGE-5) and self._role.value == (0,) and self.bid_counter < 2): # buyer
             place_buy_order = Order(DS_REWARD_CHARGE-5,
                                     1, OrderType.LIMIT, OrderSide.BUY, self._market_id, ref="s1")
+            self.bid_counter+=1
             self.send_order(place_buy_order)
             print("place this order ", place_buy_order)
 
