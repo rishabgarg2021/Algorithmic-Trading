@@ -92,6 +92,8 @@ class DSBot(Agent):
 
 
     def order_accepted(self, order):
+
+        #resets waiting for server to show order successfully send to server
         self._waiting_for_server= False
         self._wait_buy_server_mm=False
         self._wait_sell_server_mm=False
@@ -102,6 +104,7 @@ class DSBot(Agent):
 
     def order_rejected(self, info, order):
 
+        # resets waiting for server to show order successfully send to server
         self._waiting_for_server= False
         self._wait_buy_server_mm = False
         self._wait_sell_server_mm = False
